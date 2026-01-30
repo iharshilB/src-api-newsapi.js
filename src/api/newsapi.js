@@ -2,12 +2,18 @@
  * NEWSAPI MODULE
  * Fetches and processes macro/news context
  * 
+ * BASE URL: https://newsapi.org/v2/
+ * DOCS: https://newsapi.org/docs
+ * 
  * CONSTRAINTS:
  * - Must accept env parameter for secrets
  * - Must wrap ALL fetch in try/catch
  * - Must return null on failure (never throw)
  * - Must return minimal, analysis-ready data
  */
+
+// Official NewsAPI base URL
+const BASE_URL = 'https://newsapi.org/v2/';
 
 /**
  * Fetch latest macro/news sentiment
@@ -31,7 +37,7 @@ export async function fetchNewsSentiment(env) {
       apiKey: apiKey
     });
     
-    const response = await fetch(`https://newsapi.org/v2/everything?${params}`);
+    const response = await fetch(`${BASE_URL}everything?${params}`);
     
     if (!response.ok) {
       console.warn(`NewsAPI returned ${response.status}`);
@@ -106,4 +112,4 @@ function extractThemes(articles) {
     .sort((a, b) => b[1] - a[1])
     .slice(0, 3) // Top 3 themes
     .map(([theme, count]) => theme);
-}
+  }
